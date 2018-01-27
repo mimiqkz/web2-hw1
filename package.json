@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "node run app.js",
     "eslint": "eslint *.js **/*.js"
   },
   "devDependencies": {
