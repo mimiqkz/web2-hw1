@@ -5,11 +5,10 @@ const router = express.Router();
 const fs = require('fs'),
       fm = require('front-matter'),
       util = require('util'),
-      markdownIt = require('markdown-it'),
+      marked = require('marked'),
       dateFormat = require('dateformat');
 
 const dir = './articles/';
-
 const readFileAsync = util.promisify(fs.readFile),
       readDirAsync = util.promisify(fs.readdir);
 
@@ -30,16 +29,24 @@ async function getArticles(files) {
       return Promise.all(atts);
 }
 
-async function getMarkDown(content) {
-      const md = new markdownIt();
-      return md.render(content);
+async function getMarkDown(data, slug, next) {
+      let result = [];
+      for(let i = 0; i < data.length; i++) {
+            if(data[i].attributes.slug == slug) {
+                  result.push(data[i].attributes.title);
+                  result.push(marked(data[i].body));
+            }
+      }
+      if(result[0] == null){
+            next();
+      }else {
+            return result;
+      }
 }
-
 async function getFrontMatter(data) {
       let fm = [];
       for(let i = 0; i < data.length; i++) {
             fm.push(data[i].attributes);
-            //convertDateFormate(data[i].attributes.date);
       }
       fm.sort((a, b) => {
             return new Date(b.date) - new Date(a.date);
@@ -52,7 +59,6 @@ async function getFrontMatter(data) {
 
 function convertDateFormate(date) {
       const b = dateFormat(date, "dd.mm.yyyy");
-      console.log(new Date(b))
       return b;
 }
 
@@ -62,19 +68,32 @@ async function getContent() {
       return data;
 }
 
+
 router.get('/', (req, res) => {
       getContent()
             .then(data => getFrontMatter(data))
             .then(data => res.render('index', {title: "Greinarsafnið", frontmatter: data}))
-            .catch(err => console.log(err));
+            .catch(err => res.status(500));
 });
 
-router.get('/:slug', (req, res) => {
+router.get('/:slug', (req, res, next) => {      
       getContent()
-            .then(data => getMarkDown(data))
-            .then(data => res.render('article', { title: "hah", text: data }))
-            .catch(err => console.log(err));
+            .then(data => getMarkDown(data, req.params.slug, next))
+            .then(data => res.render('article', { title: data[0], text: data[1] }))
+            .catch(err => console.error(err));
+});
 
+router.use((req, res) => {
+      res.status(404);
+      res.render('errorpage', { title: "Villa kom up", text: "Síða fannst ekki" });
+
+});
+
+router.use((err, req, res, next) => {
+      console.error(err.stack);
+      res.status(500);
+      res.render('errorpage', { title: "Villa kom up", text: "Something broke!" });
+      next(err);
 });
 
 module.exports = router;

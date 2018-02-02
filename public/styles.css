@@ -35,6 +35,10 @@ h1 {
 
 }
 
+.image_container {
+  display: flex;
+  justify-content: space-around;
+}
 .max-height {
   height: 100%;
 }
