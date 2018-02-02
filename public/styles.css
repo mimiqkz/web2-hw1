@@ -1,12 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 * {
   margin: 0;
   padding: 0;
 }
 
+body,
 html {
+  height: 100%;
   box-sizing: border-box;
 }
+
 
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  background-image: url("header.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  align-self: center;
+  color: #eee; 
+  font-size: 8vw;
+  /* border: 5px solid white; */
+
+}
+
+.max-height {
+  height: 100%;
+}
+
+max-width {
+  width: 100%;
+}
+

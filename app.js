@@ -1,10 +1,19 @@
 const express = require('express');
+const path = require('path');
+const router = require('./articles.js');
 
 const app = express();
 
-const hostname = '127.0.0.1';
-const port = 3000;
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.listen(port, hostname, () => {
-  console.info(`Server running at http://${hostname}:${port}/`);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'articles')));
+
+app.use('/', router);
+
+app.get('/', (req, res) => {
+  res.redirect('/');
 });
+
+app.listen(3000, () => console.log('App listening on port 3000!'))

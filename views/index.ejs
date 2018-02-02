@@ -1,0 +1,17 @@
+<% include header %>
+<ul>
+    <% for(let i = 0; i < frontmatter.length; i++) { %>
+        <li>
+            <div class = "image_container">
+                <% if (frontmatter[i].image != undefined) { %>
+                    <img src="<%=frontmatter[i].image%>"onerror="this.width='0%'" alt="loading">
+                <% } %>
+            </div>
+            <a href="<%= frontmatter[i].slug %>">
+                <h2><%= frontmatter[i].title %></h2>
+            </a>
+            <p> <%= frontmatter[i].date %> </p>
+        </li>
+    <% } %>
+</ul>
+<% include footer %>
