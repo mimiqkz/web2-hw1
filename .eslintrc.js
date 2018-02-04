@@ -5,5 +5,6 @@ module.exports = {
   },
   rules: {
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
+    'arrow-body-style': 0
   }
 };
