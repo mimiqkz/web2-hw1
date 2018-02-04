@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 * {
   margin: 0;
@@ -8,6 +9,7 @@
 body,
 html {
   height: 100%;
+  background-color: #eee;
   box-sizing: border-box;
 }
 
@@ -15,6 +17,9 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+/*-----------------
+      Header
+------------------*/
 
 .header-container {
   display: flex;
@@ -26,24 +31,108 @@ html {
   background-size: cover;
 }
 
-h1 {
+.header-container h1 {
   font-family: 'Roboto', sans-serif;
   align-self: center;
   color: #eee; 
   font-size: 8vw;
-  /* border: 5px solid white; */
+}
 
+/*-----------------
+      Main page
+------------------*/
+
+ul {
+  margin: 2%;
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 1200px;
+
+}
+
+li {
+  list-style: none;
+  max-width: 1200px;
+  font-family: 'Roboto',
+  sans-serif;
+  margin: 2%;
+  /* for debug */
+  /* border: 5px solid red; */
+
+}
+
+li a {
+  text-decoration: none;
 }
 
 .image_container {
-  display: flex;
-  justify-content: space-around;
-}
-.max-height {
-  height: 100%;
-}
-
-max-width {
-  width: 100%;
+  background-color: #666;
+  width: 30em;
+  height: 20em;
+  /* for debug */
+  /* border: 5px solid red; */
 }
 
+img {
+  max-width: 100%;
+  object-fit: cover;
+  height:100%;
+}
+
+h1 {
+  margin-top: 5%;
+  font-size: 48px;
+}
+
+h2 {
+  margin-top: 5%;
+  font-size: 32px;
+}
+
+h3 {
+  margin-top: 5%;
+  font-size: 24px;
+}
+
+/*-----------------
+      Article
+------------------*/
+
+.article-container {
+  margin: 2%;
+  /* max-width: 1200px; */
+  font-family: 'Roboto', sans-serif;
+}
+
+.article-container h1 {
+  margin-bottom: 2%;
+  color: #333;
+  font-size: 48px;
+}
+.article-container img {
+  padding-top: 2%;
+}
+
+
+.article-container blockquote{
+  font-style: italic;
+}
+
+p {
+  font-size: 16px;
+  font-family: 'Lora',
+  sans-serif;
+  margin-top: 2%;
+}
+
+
+/*-----------------
+      Error page
+------------------*/
+.error-container,
+.error-container p {
+  text-align: center;
+  font-size: 30px;
+  margin: 4%;
+}
