@@ -79,7 +79,12 @@ router.get('/:slug', (req, res, next) => {
   getContent()
     .then(data => checkSlug(data, req.params.slug, next))
     .then(data => getMarkDown(data, next))
-    .then(data => res.render('article', { title: data[0], text: data[1] }))
+    .then((data) => {
+      if (data) {
+        res.render('article', { title: data[0], text: data[1] });
+      }
+      res.end();
+    })
     .catch(err => console.error(err));
 });
 
